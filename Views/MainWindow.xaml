@@ -54,8 +54,8 @@
                 Height="30"
                 Width="150"
                 Margin="5"
-                ItemsSource="{Binding Groups}"
-                SelectedValue="{Binding SelectedGroupId}"
+                ItemsSource="{Binding Departments}"
+                SelectedValue="{Binding SelectedDepartmentId}"
                 DisplayMemberPath="Name"
                 SelectedValuePath="Id">
 

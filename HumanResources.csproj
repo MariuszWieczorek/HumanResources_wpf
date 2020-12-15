@@ -107,6 +107,10 @@
     <Compile Include="Commands\AsyncRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="DbHelper.cs" />
+    <Compile Include="Migrations\202012151851027_init.cs" />
+    <Compile Include="Migrations\202012151851027_init.designer.cs">
+      <DependentUpon>202012151851027_init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configurations\DepartmentConfiguration.cs" />
     <Compile Include="Models\Configurations\EmployeeConfiguration.cs" />
@@ -116,6 +120,7 @@
     <Compile Include="Models\Wrappers\ConnectionSettingsWrapper.cs" />
     <Compile Include="Models\Wrappers\DepartmentWrapper.cs" />
     <Compile Include="Models\Wrappers\EmployeeWrapper.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="ViewModels\ConnectionConfigurationViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -141,6 +146,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202012151851027_init.resx">
+      <DependentUpon>202012151851027_init.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -31,8 +31,7 @@ namespace HumanResources
         /// <returns></returns>
         public static bool ConnectionSettingsTest(string testConnectionString)
         {
-            /*
-            using (var context = new ApplicationBbContext(testConnectionString))
+            using (var context = new ApplicationDbContext(testConnectionString))
             {
                 try
                 {
@@ -42,27 +41,26 @@ namespace HumanResources
                 catch (Exception)
                 {
                     MessageBox.Show($"Nie można uzyskać połączenia z użyciem connecion stringa: \n{testConnectionString} \nPopraw parametry i zatwierdź zmiany ponownie.");
-                    return true;
+                    return false;
                 }    
                 return true;
             }
-            */
-            return true;
         }
 
-        /*
+
         /// <summary>
         /// Do sprawdzania connection stringa zapisanego w ustawieniach użytkownika
         /// </summary>
         /// <returns></returns>
         public static bool ConnectionSettingsTest()
         {
-            using (var context = new ApplicationBbContext())
+            using (var context = new ApplicationDbContext())
             {
                 try
                 {
-                    context.Database.Connection.Open();
-                    context.Database.Connection.Close();
+                    var students = context.Employees.ToList();
+                    //context.Database.Connection.Open();
+                    //context.Database.Connection.Close();
                 }
                 catch (Exception)
                 {
@@ -77,7 +75,7 @@ namespace HumanResources
         /// </summary>
         /// <param name="testConnectionString"></param>
         /// <returns></returns>        
-        public static void ConnectionSettingsInfo(ApplicationBbContext context)
+        public static void ConnectionSettingsInfo(ApplicationDbContext context)
         {
 
             if (context.Database.Connection.State == ConnectionState.Open)
@@ -94,6 +92,6 @@ namespace HumanResources
             }
 
         }
-        */
+        
     }
 }
