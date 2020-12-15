@@ -107,6 +107,7 @@
     <Compile Include="Commands\AsyncRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="DbHelper.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configurations\DepartmentConfiguration.cs" />
     <Compile Include="Models\Configurations\EmployeeConfiguration.cs" />
     <Compile Include="Models\Converters\EmployeeConverter.cs" />
