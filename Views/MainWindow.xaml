@@ -92,8 +92,8 @@
         <DataGrid
             Grid.Row="1"
             Margin="5"
-            ItemsSource ="{Binding Students}" 
-            SelectedItem="{Binding SelectedStudent}"
+            ItemsSource ="{Binding Employees}" 
+            SelectedItem="{Binding SelectedEmployee}"
             CanUserAddRows="False"
             IsReadOnly="True"
             SelectionMode="Single"
@@ -102,6 +102,7 @@
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię"/>
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko"/>
+                
                 <DataGridTextColumn Binding="{Binding Comments}" Header="Uwagi"/>
                 <DataGridTextColumn Binding="{Binding Math}" Header="Matematyka"/>
                 <DataGridTextColumn Binding="{Binding Technology}" Header="Technologia"/>

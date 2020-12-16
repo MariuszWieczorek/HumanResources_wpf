@@ -95,8 +95,14 @@ namespace HumanResources.ViewModels
             }
 
             InitDepartments();
-
+            RefreshEmployees();
         }
+
+        private void RefreshEmployees(int departmentId = 0)
+        {
+            _repository.GetEmployees(departmentId);
+        }
+
 
         /// <summary>
         /// Pobiera słownik grup z bazy danych służący do filtrowania danych
