@@ -77,8 +77,12 @@ namespace HumanResources.Models.Converters
                 Id = model.Id,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                HireDate = model.HireDate,
+                Number = model.Number,
+                Salary = model.Salary,
+                Released = model.Released,
+                ReleaseDate = model.ReleaseDate,
                 DepartmentId = model.Department.Id,
-
             };
         }
 

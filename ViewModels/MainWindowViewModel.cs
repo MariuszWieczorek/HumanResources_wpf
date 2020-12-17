@@ -10,14 +10,25 @@ using System.Windows.Input;
 using HumanResources.Models.Wrappers;
 using System.Collections.ObjectModel;
 using HumanResources.Models.Domains;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System.Windows;
 
 namespace HumanResources.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        
+        public ICommand AddEmployeeCommand { get; set; }
+        public ICommand EditEmployeeCommand { get; set; }
+        public ICommand DeleteEmployeeCommand { get; set; }
+        public ICommand RefreshEmployeesCommand { get; set; }
         public ICommand ConectionConfigurationCommand { get; set; }
-        public ICommand LoadedWindowCommand { get; set; }
+
         public ICommand ComboBoxChanged { get; set; }
+
+        public ICommand LoadedWindowCommand { get; set; }
+        
         private Repository _repository = new Repository();
 
         
@@ -80,6 +91,12 @@ namespace HumanResources.ViewModels
 
         public MainWindowViewModel()
         {
+
+            RefreshEmployeesCommand = new RelayCommand(RefreshEmployees);
+            AddEmployeeCommand = new RelayCommand(AddEditEmployee);
+            EditEmployeeCommand = new RelayCommand(AddEditEmployee, CanEditDeleteEmployee);
+            DeleteEmployeeCommand = new AsyncRelayCommand(DeleteEmployee, CanEditDeleteEmployee);
+
             ConectionConfigurationCommand = new RelayCommand(ConectionConfiguration);
             LoadedWindowCommand = new RelayCommand(MainWindow_Loaded);
             ComboBoxChanged = new RelayCommand(ComboBox_LostFocus);
@@ -95,12 +112,67 @@ namespace HumanResources.ViewModels
             }
 
             InitDepartments();
-            RefreshEmployees();
+            RefreshEmployeesList();
         }
 
-        private void RefreshEmployees(int departmentId = 0)
+        private void RefreshEmployees(object obj)
         {
-            _repository.GetEmployees(departmentId);
+            RefreshEmployeesList();
+        }
+
+        /// <summary>
+        /// Metoda do wywołania po wciśnięciu przycisku Usuń
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private async Task DeleteEmployee(object arg)
+        {
+            var metroWindow = Application.Current.MainWindow as MetroWindow;
+
+            var dialog =
+                await metroWindow.ShowMessageAsync("Usuwanie Pracownika",
+                $"Czy na pewno chcesz usunąć kartotekę {SelectedEmployee.FirstName} {SelectedEmployee.LastName}",
+                MessageDialogStyle.AffirmativeAndNegative);
+
+            if (dialog != MessageDialogResult.Affirmative)
+            {
+                return;
+            }
+
+            _repository.DeleteEmployee(SelectedEmployee.Id);
+            RefreshEmployeesList();
+        }
+        
+        // czy aktywny przycisk Usuń i Edycja
+        private bool CanEditDeleteEmployee(object obj)
+        {
+            return SelectedEmployee != null;
+        }
+
+
+        /// <summary>
+        /// Metoda do wywołania po wciśnięciu przycisku Edycja lub Dodaj
+        /// </summary>
+        /// <param name="obj"></param>
+        private void AddEditEmployee(object obj)
+        {
+            var addEditEmployeeWindow = new AddEditEmployeeView(obj as EmployeeWrapper);
+            // Subskrybujemy zdarzenie closed okna edycji pracownika
+            // Metoda AddEditEmployeeWindow_Closed zostanie wykonana w momencie zamknięcia tego okna
+            addEditEmployeeWindow.Closed += AddEditEmployeeWindow_Closed;
+            addEditEmployeeWindow.ShowDialog();
+            addEditEmployeeWindow.Closed -= AddEditEmployeeWindow_Closed;
+        }
+
+        // Metoda do wywołania w momencie zamknięcia okna edycji pracownika
+        private void AddEditEmployeeWindow_Closed(object sender, EventArgs e)
+        {
+            RefreshEmployeesList();
+        }
+
+        private void RefreshEmployeesList(int departmentId = 0)
+        {
+            Employees = new ObservableCollection<EmployeeWrapper>(_repository.GetEmployees(departmentId));
         }
 
 
@@ -122,13 +194,11 @@ namespace HumanResources.ViewModels
 
         private void ComboBox_LostFocus(object obj)
         {
-            // TODO: Oprogramowanie Lost Focus'a Combo Boxa z grupami
-            return;
+            RefreshEmployeesList(SelectedDepartmentId);
         }
 
         private void MainWindow_Loaded(object obj)
         {
-            // TODO: MainWindow Loaded
             return;
         }
 

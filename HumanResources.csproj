@@ -91,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AddEditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
     <Page Include="Views\ConnectionConfigurationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,9 +125,13 @@
     <Compile Include="Models\Wrappers\DepartmentWrapper.cs" />
     <Compile Include="Models\Wrappers\EmployeeWrapper.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="ViewModels\AddEditEmployeeViewModel.cs" />
     <Compile Include="ViewModels\ConnectionConfigurationViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AddEditEmployeeView.xaml.cs">
+      <DependentUpon>AddEditEmployeeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConnectionConfigurationView.xaml.cs">
       <DependentUpon>ConnectionConfigurationView.xaml</DependentUpon>
     </Compile>

@@ -1,0 +1,136 @@
+﻿<mah:MetroWindow x:Class="HumanResources.Views.AddEditEmployeeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:HumanResources"
+        mc:Ignorable="d"
+        Name="AddEditEmployeeView_Window"         
+        WindowStartupLocation="CenterScreen"
+        Title="Dane pracownika" Height="520" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label 
+            Visibility="{Binding IsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Content="Id"
+            Margin="5"/>
+        <TextBox 
+            Visibility="{Binding IsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
+            IsReadOnly="true"
+            IsEnabled="false"
+            Text ="{Binding Employee.Id}"
+            Grid.Column="1"
+            Margin="5"/>
+
+        <Label Grid.Row="1" Content="Imie" Margin="5"/>
+        <TextBox 
+            Text ="{Binding Employee.FirstName,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5"/>
+
+        <Label Grid.Row="2" Content="Nazwisko" Margin="5"/>
+        <TextBox 
+            Text ="{Binding Employee.LastName,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"/>
+
+        <Label Grid.Row="3" Content="Numer" Margin="5"/>
+        <TextBox 
+            Text ="{Binding Employee.Number}"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="5"/>
+
+        <Label Grid.Row="4" Content="Data Zatrudnienia" Margin="5"/>
+        <DatePicker 
+            Text ="{Binding Employee.HireDate}"
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="5"/>
+
+        <Label Grid.Row="5" Content="Dział" Margin="5"/>
+        <ComboBox 
+            Grid.Row="5" 
+            Grid.Column="1" 
+            Margin="5"
+            ItemsSource="{Binding Departments}"
+            SelectedValue="{Binding Employee.Department.Id,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="Name"
+            SelectedValuePath="Id"
+            />
+
+        <Label Grid.Row="6" Content="Wynagrodzenie" Margin="5"/>
+        <TextBox 
+            Text ="{Binding Employee.Salary}"
+            Grid.Row="6"
+            Grid.Column="1"
+            Margin="5"/>
+
+        <CheckBox 
+            IsChecked ="{Binding Employee.Released}"
+            Grid.Row="7" 
+            Content="Zwolniony" 
+            Grid.Column="1" 
+            Margin="5"/>
+
+        <Label Grid.Row="8" Content="Data Zwolnienia" Margin="5"/>
+        <DatePicker
+            Text ="{Binding Employee.ReleasedDate}"
+            Grid.Row="8"
+            Grid.Column="1"
+            Margin="5"/>
+   
+
+        <Label Grid.Row="10" Content="Uwagi" Margin="5"/>
+        <TextBox 
+            Text ="{Binding Employee.Comments}"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            Grid.Row="10"  
+            Grid.Column="1" 
+            Margin="5"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Right">
+            <Button 
+                Command="{Binding ConfirmCommand}"
+                CommandParameter="{Binding  ElementName=AddEditEmployeeView_Window}"
+                Content="Zatwierdź"
+                Height="30"
+                Width="100"
+                Margin="5"/>
+            
+            <Button 
+                Command="{Binding CloseCommand}"
+                CommandParameter="{Binding  ElementName=AddEditEmployeeView_Window}"
+                Content="Anuluj"
+                Height="30"
+                Width="100"
+                Margin="5"/>
+        </StackPanel>
+        
+        
+    </Grid>
+
+</mah:MetroWindow>

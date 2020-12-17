@@ -59,6 +59,76 @@ namespace HumanResources
             }
         }
 
+        /// <summary>
+        /// Dodawanie Nowego Pracownika
+        /// </summary>
+        /// <param name="employeeWrapper"></param>
+        internal void AddEmployee(EmployeeWrapper employeeWrapper)
+        {
+            // konwersja z Wrapperów na obiekty domenowe DAO
+            var employee = employeeWrapper.toDao();
+
+            // teraz mamy już obiekty domenowe
+            using (var context = new ApplicationDbContext())
+            {
+                // najpierw zapisujemy do bazy aby później odczytać jakie Id nadała baza
+                // jeżeli będziemy je dalej potrzebować
+                var dbStudent = context.Employees.Add(employee);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Aktualizacja Danych Pracownika
+        /// </summary>
+        /// <param name="employeeWrapper"></param>
+        internal void UpdateEmployee(EmployeeWrapper employeeWrapper)
+        {
+            // konwersja z Wrapperów na obiekty domenowe DAO
+            var employee = employeeWrapper.toDao();
+            using (var context = new ApplicationDbContext())
+            {
+                // najpierw pobieramy studenta, którego chcemy aktualizować 
+                var employeeToUpdate = context.Employees.Find(employee.Id);
+
+                
+                employeeToUpdate.FirstName = employee.FirstName;
+                employeeToUpdate.LastName = employee.LastName;
+                employeeToUpdate.Number = employee.Number;
+                employeeToUpdate.HireDate = employee.HireDate;
+                employeeToUpdate.Salary = employee.Salary;
+                employeeToUpdate.Released = employee.Released;
+                employeeToUpdate.ReleaseDate = employee.ReleaseDate;
+                employeeToUpdate.DepartmentId = employee.DepartmentId;
+
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Błąd zapisu do bazy");
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Usuwanie Pracownika
+        /// </summary>
+        /// <param name="id"></param>
+        internal void DeleteEmployee(int id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                // var employeeToDelete = context.Employees.Where(x => x.Id == id).ToList();
+                var employeeToDelete = context.Employees.Find(id);
+                context.Employees.Remove(employeeToDelete);
+                context.SaveChanges();
+            }
+        }
+        //
+
     }
 
 

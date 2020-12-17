@@ -25,16 +25,18 @@
         <StackPanel Orientation="Horizontal">
 
             <Button
-                Command ="{Binding AddStudentsCommand}"
+                Command ="{Binding AddEmployeeCommand}"
                 Content="Dodaj"
                 Height="30"
                 Width="100"
                 Margin="5"
              />
 
+            <!-- Command Komenda zbindowana w Modelu Widoku -->
+            <!-- CommandParameter Parametr przekazany do Metody -->
             <Button 
-                Command ="{Binding EditStudentsCommand}"
-                CommandParameter="{Binding SelectedStudent}"
+                Command ="{Binding EditEmployeeCommand}"
+                CommandParameter="{Binding SelectedEmployee}"
                 Content="Edytuj" 
                 Height="30" 
                 Width="100" 
@@ -42,14 +44,15 @@
             />
 
             <Button 
-                Command ="{Binding DeleteStudentsCommand}"
-                CommandParameter="{Binding SelectedStudent}"
+                Command ="{Binding DeleteEmployeeCommand}"
+                CommandParameter="{Binding SelectedEmployee}"
                 Content="Usuń" 
                 Height="30" 
                 Width="100" 
                 Margin="5" 
             />
 
+            
             <ComboBox
                 Height="30"
                 Width="150"
@@ -102,15 +105,11 @@
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię"/>
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko"/>
-                
-                <DataGridTextColumn Binding="{Binding Comments}" Header="Uwagi"/>
-                <DataGridTextColumn Binding="{Binding Math}" Header="Matematyka"/>
-                <DataGridTextColumn Binding="{Binding Technology}" Header="Technologia"/>
-                <DataGridTextColumn Binding="{Binding Physics}" Header="Fizyka"/>
-                <DataGridTextColumn Binding="{Binding PolishLang}" Header="Język Polski" />
-                <DataGridTextColumn Binding="{Binding ForeignLang}" Header="Język Obcy" />
-                <DataGridCheckBoxColumn Binding="{Binding Activities}" Header="Dodatkowe" />
-                <DataGridTextColumn Binding="{Binding Group.Name}" Header="Grupa"/>
+                <DataGridTextColumn Binding="{Binding HireDate}" Header="Data Zatrudnienia"/>
+                <DataGridCheckBoxColumn Binding="{Binding Released}" Header="Zwolniony" />
+                <DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Data Zwolnienia"/>
+                             
+                <DataGridTextColumn Binding="{Binding Department.Name}" Header="Dział"/>
 
             </DataGrid.Columns>
         </DataGrid>
