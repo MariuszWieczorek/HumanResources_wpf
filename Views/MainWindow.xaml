@@ -22,6 +22,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        
         <StackPanel Orientation="Horizontal">
 
             <Button
@@ -70,6 +72,18 @@
 
             </ComboBox>
 
+            <CheckBox 
+                IsChecked="{Binding ShowReleasedEmployees}"
+                Content="Pokaż również pracowników zwolnionych"
+                Margin="5">
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding CheckBoxChanged}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            
             <Button  
                 Command ="{Binding RefreshStudentsCommand}"
                 CommandParameter="{Binding SelectedStudent}"
@@ -105,13 +119,14 @@
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię"/>
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko"/>
+                <DataGridTextColumn Binding="{Binding Department.Name}" Header="Dział"/>
+                <DataGridTextColumn Binding="{Binding Salary}" Header="Stawka"/>
                 <DataGridTextColumn Binding="{Binding HireDate}" Header="Data Zatrudnienia"/>
                 <DataGridCheckBoxColumn Binding="{Binding Released}" Header="Zwolniony" />
                 <DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Data Zwolnienia"/>
-                             
-                <DataGridTextColumn Binding="{Binding Department.Name}" Header="Dział"/>
-
             </DataGrid.Columns>
+            
+            
         </DataGrid>
     </Grid>
 </mah:MetroWindow>

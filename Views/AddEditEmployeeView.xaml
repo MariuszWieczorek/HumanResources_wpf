@@ -65,7 +65,7 @@
 
         <Label Grid.Row="4" Content="Data Zatrudnienia" Margin="5"/>
         <DatePicker 
-            Text ="{Binding Employee.HireDate}"
+            SelectedDate ="{Binding Employee.HireDate}"
             Grid.Row="4"
             Grid.Column="1"
             Margin="5"/>
@@ -97,7 +97,7 @@
 
         <Label Grid.Row="8" Content="Data Zwolnienia" Margin="5"/>
         <DatePicker
-            Text ="{Binding Employee.ReleasedDate}"
+            SelectedDate ="{Binding Employee.ReleaseDate}"
             Grid.Row="8"
             Grid.Column="1"
             Margin="5"/>

@@ -25,7 +25,7 @@ namespace HumanResources
         }
 
 
-        public List<EmployeeWrapper> GetEmployees(int departmentId = 0)
+        public List<EmployeeWrapper> GetEmployees(int departmentId = 0, bool showReleasedEmployees = true)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -40,6 +40,9 @@ namespace HumanResources
 
                 if (departmentId != 0)
                     employees = employees.Where(x => x.DepartmentId == departmentId).AsQueryable();
+
+                if (showReleasedEmployees == false)
+                    employees = employees.Where(x => x.Released == false).AsQueryable();
 
                 // w tym miejscu wykonamy kwerendę
                 // gdyby powyżej było ToList() zapytanie wywołało by się 2 razy

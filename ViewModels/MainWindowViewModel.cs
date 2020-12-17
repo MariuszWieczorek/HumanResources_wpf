@@ -26,6 +26,7 @@ namespace HumanResources.ViewModels
         public ICommand ConectionConfigurationCommand { get; set; }
 
         public ICommand ComboBoxChanged { get; set; }
+        public ICommand CheckBoxChanged { get; set; }
 
         public ICommand LoadedWindowCommand { get; set; }
         
@@ -76,6 +77,16 @@ namespace HumanResources.ViewModels
             }
         }
 
+
+        private bool _showReleasedEmployees;
+
+        public bool ShowReleasedEmployees
+        {
+            get { return _showReleasedEmployees; }
+            set { _showReleasedEmployees = value; }
+        }
+
+
         // właściwość przechowująca listę działów
         // po stronie widoku zbindowana z ItemsSource ComboBoxa
         private ObservableCollection<Department> _departments;
@@ -100,6 +111,7 @@ namespace HumanResources.ViewModels
             ConectionConfigurationCommand = new RelayCommand(ConectionConfiguration);
             LoadedWindowCommand = new RelayCommand(MainWindow_Loaded);
             ComboBoxChanged = new RelayCommand(ComboBox_LostFocus);
+            CheckBoxChanged = new RelayCommand(CheckBox_Click);
 
             // Gdy test połączenie wypadnie negatywnie
             // wywołane zostaje okienko konfiguracyjne połączenia SQL
@@ -112,6 +124,11 @@ namespace HumanResources.ViewModels
             }
 
             InitDepartments();
+            RefreshEmployeesList();
+        }
+
+        private void CheckBox_Click(object obj)
+        {
             RefreshEmployeesList();
         }
 
@@ -170,9 +187,9 @@ namespace HumanResources.ViewModels
             RefreshEmployeesList();
         }
 
-        private void RefreshEmployeesList(int departmentId = 0)
+        private void RefreshEmployeesList()
         {
-            Employees = new ObservableCollection<EmployeeWrapper>(_repository.GetEmployees(departmentId));
+            Employees = new ObservableCollection<EmployeeWrapper>(_repository.GetEmployees(SelectedDepartmentId, ShowReleasedEmployees));
         }
 
 
@@ -190,11 +207,12 @@ namespace HumanResources.ViewModels
             // listę jako parametr do konstruktora
             Departments = new ObservableCollection<Department>(departments);
             SelectedDepartmentId = 0;
+            ShowReleasedEmployees = true;
         }
 
         private void ComboBox_LostFocus(object obj)
         {
-            RefreshEmployeesList(SelectedDepartmentId);
+            RefreshEmployeesList();
         }
 
         private void MainWindow_Loaded(object obj)

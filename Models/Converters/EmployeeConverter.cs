@@ -30,7 +30,7 @@ namespace HumanResources.Models.Converters
 
 
 
-    public static class StudentConverter
+    public static class EmployeeConverter
     {
 
         /// <summary>
