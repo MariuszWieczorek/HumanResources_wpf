@@ -13,7 +13,7 @@ namespace HumanResources.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202012151851027_init"; }
+            get { return "202012171813352_init"; }
         }
         
         string IMigrationMetadata.Source

@@ -14,7 +14,7 @@ namespace HumanResources.Models.Domains
         public string LastName { get; set; }
 
         public string Number { get; set; }
-        public DateTime HireDate { get; set; }
+        public DateTime? HireDate { get; set; }
         public bool Released { get; set; }
         public DateTime? ReleaseDate { get; set; }  // używamy typu nulowalnego aby móc zapisać null gdy pusta data aaa
         public decimal Salary { get; set; }

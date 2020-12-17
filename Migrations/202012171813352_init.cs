@@ -24,7 +24,7 @@
                         FirstName = c.String(nullable: false, maxLength: 100),
                         LastName = c.String(nullable: false, maxLength: 100),
                         Number = c.String(),
-                        HireDate = c.DateTime(nullable: false),
+                        HireDate = c.DateTime(),
                         Released = c.Boolean(nullable: false),
                         ReleaseDate = c.DateTime(),
                         Salary = c.Decimal(nullable: false, precision: 18, scale: 2),

@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Kartoteka Pracowników" Height="500" Width="1000">
 
+    
     <!-- Bindowanie zdarzenie Loaded do właściwości w view modelu LoadedWindowCommand.-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -85,8 +86,8 @@
             </CheckBox>
             
             <Button  
-                Command ="{Binding RefreshStudentsCommand}"
-                CommandParameter="{Binding SelectedStudent}"
+                Command ="{Binding RefreshEmployeesCommand}"
+                CommandParameter="{Binding SelectedEmployee}"
                 Content="Odśwież" 
                 Height="30" 
                 Width="100"
@@ -106,6 +107,8 @@
 
         </StackPanel>
 
+        <!-- x:Name="dataGrid" CellStyle="{StaticResource CellStyle}" -->            
+        
         <DataGrid
             Grid.Row="1"
             Margin="5"
@@ -121,6 +124,20 @@
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko"/>
                 <DataGridTextColumn Binding="{Binding Department.Name}" Header="Dział"/>
                 <DataGridTextColumn Binding="{Binding Salary}" Header="Stawka"/>
+
+                <DataGridTextColumn Binding="{Binding Salary}" Header="Stawka">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="100.00">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+
                 <DataGridTextColumn Binding="{Binding HireDate}" Header="Data Zatrudnienia"/>
                 <DataGridCheckBoxColumn Binding="{Binding Released}" Header="Zwolniony" />
                 <DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Data Zwolnienia"/>
