@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:HumanResources.Converters"
         xmlns:local="clr-namespace:HumanResources"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"         
@@ -17,6 +18,12 @@
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
+    <mah:MetroWindow.Resources>
+        <converters:BoolToBackgroundColor x:Key="boolToBackgroundColor" />
+        <converters:SalaryToBackgroundColor x:Key="salaryToBackgroundColor" />
+    </mah:MetroWindow.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -118,13 +125,61 @@
             IsReadOnly="True"
             SelectionMode="Single"
             AutoGenerateColumns="False">
+
+            <!--
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderBrush" Value="{Binding Released, Converter={StaticResource boolToBackgroundColor}}"/>
+                    <Setter Property="Background" Value="{Binding Released, Converter={StaticResource boolToBackgroundColor}}"/>
+                </Style>
+            </DataGrid.CellStyle>
+            
+            -->
+            
+            <!--
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{Binding Released, Converter={StaticResource boolToBackgroundColor}}" />
+                </Style>
+            </DataGrid.RowStyle>    
+            -->
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{Binding Released, Converter={StaticResource boolToBackgroundColor}}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="LightBlue" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+            </DataGrid.RowStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+
+
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię"/>
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko"/>
                 <DataGridTextColumn Binding="{Binding Department.Name}" Header="Dział"/>
-                <DataGridTextColumn Binding="{Binding Salary}" Header="Stawka"/>
-
+                
+                <!--
                 <DataGridTextColumn Binding="{Binding Salary}" Header="Stawka">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -136,10 +191,24 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                -->
+
+                <DataGridTextColumn Binding="{Binding Salary}" Header="Stawka">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Foreground" Value="{Binding Salary, Converter={StaticResource salaryToBackgroundColor}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
 
 
                 <DataGridTextColumn Binding="{Binding HireDate}" Header="Data Zatrudnienia"/>
-                <DataGridCheckBoxColumn Binding="{Binding Released}" Header="Zwolniony" />
+                
+                <DataGridCheckBoxColumn Binding="{Binding Released}" Header="Zwolniony">
+           
+                </DataGridCheckBoxColumn>
+
+
                 <DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Data Zwolnienia"/>
             </DataGrid.Columns>
             

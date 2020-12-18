@@ -24,8 +24,21 @@ namespace HumanResources
             }
         }
 
+        // Dane o użytkownikach
+        public List<UserWrapper> GetUsers()
+        {
+            var Users = new List<UserWrapper>
+            {
+                new UserWrapper {Id = 1, UserName = "Ala", Password = "alamakota"},
+                new UserWrapper {Id = 1, UserName = "Mariusz", Password = "a"}
+                new UserWrapper {Id = 1, UserName = "a", Password = "a"}
+            };
 
-        public List<EmployeeWrapper> GetEmployees(int departmentId = 0, bool showReleasedEmployees = true)
+            return Users;
+        }
+
+    //
+    public List<EmployeeWrapper> GetEmployees(int departmentId = 0, bool showReleasedEmployees = true)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -131,6 +144,8 @@ namespace HumanResources
             }
         }
         //
+
+
 
     }
 

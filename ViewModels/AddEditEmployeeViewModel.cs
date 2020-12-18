@@ -17,6 +17,7 @@ namespace HumanResources.ViewModels
     {
 
         private Repository _repository = new Repository();
+
         public ICommand CloseCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
 
