@@ -1,4 +1,5 @@
 ﻿using HumanResources.Commands;
+using HumanResources.Models;
 using HumanResources.Models.Wrappers;
 using HumanResources.Views;
 using System;
@@ -35,17 +36,24 @@ namespace HumanResources.ViewModels
 
         private void Close(object obj)
         {
-            CloseWindow(obj as Window);
+            //CloseWindow(obj as Window);
+            Application.Current.Shutdown();
         }
+
+        // Czyli rzutujemy obiekt, który został przekazany na klasę LoginParams i następnie pobieramy hasło.
+        // Na tą chwilę operujemy na normalny haśle, ale w przyszłości zawsze działamy na hasłach szyfrowanych
+        // i tak samo w bazie powinno byc zaszyfrowane hasło.
 
         private void Confirm(object obj)
         {
+            var loginParams = obj as LoginParams;
+            User.Password = loginParams.PasswordBox.Password;
+
             if (Login())
             {
-                var x = new MainWindow();
-                x.Show();
-                CloseWindow(obj as Window);
+                CloseWindow(loginParams.Window);
             }
+
         }
 
         private void CloseWindow(Window window)

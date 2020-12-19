@@ -30,7 +30,7 @@ namespace HumanResources
             var Users = new List<UserWrapper>
             {
                 new UserWrapper {Id = 1, UserName = "Ala", Password = "alamakota"},
-                new UserWrapper {Id = 1, UserName = "Mariusz", Password = "a"}
+                new UserWrapper {Id = 1, UserName = "Mariusz", Password = "a"},
                 new UserWrapper {Id = 1, UserName = "a", Password = "a"}
             };
 

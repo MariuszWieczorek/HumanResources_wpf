@@ -123,6 +123,10 @@ namespace HumanResources.ViewModels
                 connectionConfigurationWindow.ShowDialog();
             }
 
+            var loginView = new LoginWindowView();
+            loginView.ShowDialog(); //koniecznie ShowDialog() !!!
+
+
             InitDepartments();
             RefreshEmployeesList();
         }

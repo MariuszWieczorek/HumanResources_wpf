@@ -87,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\PasswordBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -114,7 +118,10 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Commands\AsyncRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Converters\Converters.cs" />
+    <Compile Include="Converters\BoolToBackgroundColor.cs" />
+    <Compile Include="Converters\LoginParamsConverter.cs" />
+    <Compile Include="Converters\ValueToBrushConverter.cs" />
+    <Compile Include="Converters\SalaryToBackgroundColor.cs" />
     <Compile Include="DbHelper.cs" />
     <Compile Include="Migrations\202012171813352_init.cs" />
     <Compile Include="Migrations\202012171813352_init.designer.cs">
@@ -126,6 +133,7 @@
     <Compile Include="Models\Converters\EmployeeConverter.cs" />
     <Compile Include="Models\Domains\Department.cs" />
     <Compile Include="Models\Domains\Employee.cs" />
+    <Compile Include="Models\LoginParams.cs" />
     <Compile Include="Models\Wrappers\ConnectionSettingsWrapper.cs" />
     <Compile Include="Models\Wrappers\DepartmentWrapper.cs" />
     <Compile Include="Models\Wrappers\EmployeeWrapper.cs" />
